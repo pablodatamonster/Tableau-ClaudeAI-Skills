@@ -25,11 +25,10 @@ Load this skill and Claude becomes your Tableau formula co-pilot. It knows:
 
 > **Requires:** Free claude.ai account at [claude.ai](https://claude.ai)
 
-1. Open a new conversation on [claude.ai](https://claude.ai)
-2. Click **Raw** on this file → select all → copy
-3. Paste into the chat with:
-   > *"I'm going to give you a skill to follow for this conversation."* + paste
-4. Ask for your calculated field — see example prompts below
+1. Click the **download icon** on this file's GitHub page to save the `.md` file to your computer
+2. Open [claude.ai](https://claude.ai) and start a new conversation
+3. Click the **paperclip / attachment icon** in the chat input and attach the `.md` file
+4. Write your request in the same message — Claude reads the skill and gets straight to work
 
 ### In Claude Code
 
