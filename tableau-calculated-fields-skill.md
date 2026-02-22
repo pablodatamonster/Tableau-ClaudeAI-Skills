@@ -1,19 +1,113 @@
-# Tableau Calculated Fields Skill
+# 🧮 Tableau Calculated Fields Skill
+**A Claude AI skill by [DataMonster](https://Data.Monster) — Pablo Gomez**
+*Tableau Visionary · Ambassador · London, UK*
 
-## Purpose
-This skill guides Claude when writing, reviewing, or debugging Tableau calculated fields. Always read this file before generating any Tableau formula or calculation.
+> Write, review, and debug Tableau calculated fields using DataMonster's standards — LOD expressions, table calculations, date logic, NULL handling, naming conventions, and performance rules. All in one skill.
+
+---
+
+## What this skill does
+
+Load this skill and Claude becomes your Tableau formula co-pilot. It knows:
+
+- **DataMonster's calculation standards** — formatting, naming conventions, style rules
+- **LOD decision logic** — when to use FIXED vs INCLUDE vs EXCLUDE, and when not to use LODs at all
+- **Table calculation patterns** — running totals, period-over-period, rank, percent of total
+- **Date calculations** — DATETRUNC, DATEADD, fiscal year logic, relative date comparisons
+- **NULL and division safety** — never returns a broken calc
+- **Performance guidelines** — knows when a calc will be slow and suggests alternatives
+
+---
+
+## How to use it
+
+### In claude.ai chat ✅ Recommended for most users
+
+> **Requires:** Free claude.ai account at [claude.ai](https://claude.ai)
+
+1. Open a new conversation on [claude.ai](https://claude.ai)
+2. Click **Raw** on this file → select all → copy
+3. Paste into the chat with:
+   > *"I'm going to give you a skill to follow for this conversation."* + paste
+4. Ask for your calculated field — see example prompts below
+
+### In Claude Code
+
+> **Requires:** Claude Pro or Max subscription
+
+1. Save this file to `.claude/skills/tableau-calculated-fields-skill.md` in your project
+2. Reference it at the start of a session:
+   > *"Read `tableau-calculated-fields-skill.md` then help me write a calculated field for..."*
+
+---
+
+## Example prompts
+
+```
+Write a calculated field for rolling 3-month average of sales.
+Fields available: [Order Date] (date), [Sales] (float). One row per order line.
+```
+
+```
+I need a customer retention rate. A customer is retained if they ordered
+in both the current and previous calendar year.
+Fields: [Customer ID], [Order Date], [Sales].
+```
+
+```
+Write a FIXED LOD that calculates each customer's first order date,
+then flag any order that is their first purchase.
+```
+
+```
+My profit margin calc is returning nulls when Sales is zero.
+How do I null-protect it? Calc: [Profit] / [Sales]
+```
+
+```
+I need a date calc for fiscal year, where the fiscal year starts in April.
+```
+
+---
+
+## Quick Reference Cheatsheet
+
+| Task | Function |
+|------|----------|
+| Truncate date | `DATETRUNC('month', [Date])` |
+| Add period | `DATEADD('month', 3, [Date])` |
+| Diff between dates | `DATEDIFF('day', [Start], [End])` |
+| Null-safe divide | `ZN([N]) / NULLIF([D], 0)` |
+| Running total | `RUNNING_SUM(SUM([Field]))` |
+| Rank | `RANK_DENSE(SUM([Field]), 'desc')` |
+| Fixed total | `{FIXED [Dim] : SUM([Field])}` |
+| String contains | `CONTAINS([Field], "text")` |
+| Today's date | `TODAY()` |
+| Conditional flag | `IF [Metric] >= [Target] THEN "On Track" ELSE "Off Track" END` |
 
 ---
 
 ## About DataMonster
 
-These skills were created by **Pablo Gomez** also known in the DataFam as **DataMonster** ([Data.Monster](https://Data.Monster)) — a Tableau Visionary and Tableau Ambassador, and Data Storyteller based in London, UK.
-
-Pablo is also a public speaker and has been working in data visualization and infographic design for over a decade, and is passionate about applying AI responsibly to make data stories clearer and more human.
+These skills were created by **Pablo Gomez**, known in the DataFam as **DataMonster** — a Tableau Visionary and Tableau Ambassador, Data Storyteller, and public speaker based in London, UK. Passionate about applying AI responsibly to make data stories clearer and more human.
 
 🔗 [data.monster](https://Data.Monster) · [LinkedIn](https://www.linkedin.com/in/pablolgomez) · [Tableau Public](https://public.tableau.com/app/profile/pablolgomez)
 
-> These skills are shared freely with the DataFam community. If you use, adapt, or build on them — a shoutout is always appreciated but never required. That's the DataFam way. 💙
+> Shared freely with the DataFam community. Use it, adapt it, build on it — a shoutout is always appreciated but never required. That's the DataFam way. 💙
+
+---
+---
+
+<!--
+  ============================================================
+  CLAUDE INSTRUCTIONS — Everything below is for Claude only.
+  Human readers can stop here.
+  ============================================================
+-->
+
+## Purpose
+
+This skill guides Claude when writing, reviewing, or debugging Tableau calculated fields. Always read this file before generating any Tableau formula or calculation.
 
 ---
 
@@ -205,20 +299,3 @@ When asking for a calculated field, provide:
 
 Example prompt:
 > "Using this skill, write a calculated field for customer retention rate. I have [Customer ID], [Order Date] (date), and [Sales] (float). Each row is one order. A customer is retained if they ordered in both the current and previous calendar year."
-
----
-
-## Quick Reference Cheatsheet
-
-| Task | Function |
-|------|----------|
-| Truncate date | `DATETRUNC('month', [Date])` |
-| Add period | `DATEADD('month', 3, [Date])` |
-| Diff between dates | `DATEDIFF('day', [Start], [End])` |
-| Null-safe divide | `ZN([N]) / NULLIF([D], 0)` |
-| Running total | `RUNNING_SUM(SUM([Field]))` |
-| Rank | `RANK_DENSE(SUM([Field]), 'desc')` |
-| Fixed total | `{FIXED [Dim] : SUM([Field])}` |
-| String contains | `CONTAINS([Field], "text")` |
-| Today's date | `TODAY()` |
-| Conditional color flag | `IF [Metric] >= [Target] THEN "On Track" ELSE "Off Track" END` |
