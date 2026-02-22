@@ -14,7 +14,7 @@ Originally demonstrated live at **Tableau Conference 2025** and **DataFam Europe
 1. **Asks the right questions** — theme, style, color restrictions, palette type (categorical, sequential, diverging)
 2. **Generates a harmonious palette** — 5 colors by default, with evocative names, hex codes, and roles
 3. **Renders it visually** — color swatches inside the artifact panel (claude.ai chat)
-4. **Exports as PNG and SVG** — for use in Canva, Adobe Illustrator, Figma, or presentations
+4. **Exports as PNG** — download the palette for use in Canva, presentations, or anywhere you need the image
 5. **Outputs Tableau XML** — paste directly into your `Preferences.tps` file and it appears in Tableau Desktop
 
 ---
@@ -25,11 +25,16 @@ Originally demonstrated live at **Tableau Conference 2025** and **DataFam Europe
 
 > **Requires:** Free claude.ai account · Artifacts enabled (Settings → Feature Preview → Artifacts)
 
-1. Open [claude.ai](https://claude.ai) and start a new conversation
-2. Click **Raw** on this file → select all → copy
-3. Paste into the chat with:
-   > *"I'm going to give you a skill to follow for this conversation."* + paste
-4. Ask for your palette — see example prompts below
+1. **Download** this file to your computer (click the download icon on GitHub, or Raw → Save As)
+2. Open [claude.ai](https://claude.ai) and start a new conversation
+3. Click the **paperclip / attachment icon** in the chat input and attach the `.md` file
+4. Write your palette request in the same message, for example:
+   > *"Using the attached skill, please create a diverging palette for a healthcare dashboard — patient satisfaction above and below target. Clean, professional, color-blind safe."*
+5. Press Enter — Claude reads the skill and generates your palette in one step
+
+**Tip:** Save the `.md` file somewhere handy on your computer and reuse it whenever you need a new palette — no need to go back to GitHub each time.
+
+> **Artifacts must be enabled** for the palette to render visually. In claude.ai: click your profile icon → Settings → Feature Preview → toggle **Artifacts** on.
 
 ### In Claude Code
 
@@ -260,8 +265,6 @@ Use this complete HTML template, populated with the generated colors:
     .dl-btn:hover { transform: translateY(-1px); }
     .btn-png { background: #333; color: #fff; }
     .btn-png:hover { background: #111; }
-    .btn-svg { background: #fff; color: #333; border: 2px solid #333; }
-    .btn-svg:hover { background: #f0f0f0; }
     .footer {
       margin-top: 20px;
       font-size: 0.65em;
@@ -326,7 +329,6 @@ Use this complete HTML template, populated with the generated colors:
 
   <div class="button-row" id="btnRow">
     <a id="pngLink" class="dl-btn btn-png" download="palette.png">🖼 Download PNG</a>
-    <a id="svgLink" class="dl-btn btn-svg" download="palette.svg">✏️ Download SVG</a>
   </div>
 
   <canvas id="fallbackCanvas" style="display:none;margin-top:16px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.15);max-width:100%;cursor:pointer;" title="Right-click → Save Image As to download PNG"></canvas>
@@ -393,11 +395,6 @@ Use this complete HTML template, populated with the generated colors:
     window.addEventListener('load', function() {
       const slug = PALETTE_NAME.replace(/\s+/g,'-').toLowerCase();
       const svgStr = buildSVG();
-
-      const svgURI = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
-      const svgLink = document.getElementById('svgLink');
-      svgLink.href = svgURI;
-      svgLink.download = slug + '-palette.svg';
 
       buildPNG(svgStr, function(pngURI, canvas) {
         const pngLink = document.getElementById('pngLink');
